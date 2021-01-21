@@ -4,7 +4,7 @@ using System;
 namespace Homework_1
 {
 
-    public class Employee
+    class Employee
     {
 
         protected string name;
@@ -41,7 +41,7 @@ namespace Homework_1
         }
     }
 
-    public class SalesPerson : Employee
+    class SalesPerson : Employee
     {
         protected int percent;
 
@@ -70,7 +70,7 @@ namespace Homework_1
         }
     }
 
-    public class Manager : Employee
+    class Manager : Employee
     {
         protected int quantity;
 
@@ -99,7 +99,7 @@ namespace Homework_1
         }
     }
 
-    public class Company
+    class Company
     {
         public Employee [] staff;
 
