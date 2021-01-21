@@ -1,10 +1,10 @@
-﻿using Homework_1;
+using Homework_1;
 using System;
 
 namespace Homework_1
 {
 
-    class Employee
+    public class Employee
     {
 
         protected string name;
@@ -20,6 +20,7 @@ namespace Homework_1
         {
             this.salary = salary;
             return this.salary;
+            
         }
 
         public Employee(string name, decimal salary)
@@ -40,7 +41,7 @@ namespace Homework_1
         }
     }
 
-    class SalesPerson : Employee
+    public class SalesPerson : Employee
     {
         protected int percent;
 
@@ -69,7 +70,7 @@ namespace Homework_1
         }
     }
 
-    class Manager : Employee
+    public class Manager : Employee
     {
         protected int quantity;
 
@@ -98,6 +99,48 @@ namespace Homework_1
         }
     }
 
+    public class Company
+    {
+        public Employee [] staff;
+
+        public Company(Employee []  a)
+        {
+            staff = a;
+        }
+
+        public void GiveEverbodyBonus(decimal companyBonus)
+        {
+            for (int i = 0; i < staff.Length; i++)
+            {
+                staff[i].SetBonus(companyBonus);
+            }   
+        }
+
+        public decimal TotalToPay()
+        {
+            decimal totalToPay = 0;
+            for (int i = 0; i < staff.Length; i++)
+            {
+                totalToPay += staff[i].ToPay();
+            }
+            return totalToPay;
+        }
+
+        public string NameMaxSalary()
+        {
+            decimal maxSalary = 0;
+            string resName = "";
+            for (int i = 0; i < staff.Length; i++)
+            {
+                if (maxSalary <= staff[i].ToPay())
+                {
+                    maxSalary = staff[i].ToPay();
+                    resName = staff[i].Name();
+                }
+            }
+            return resName;
+        }
+    }
 
 
 
@@ -114,6 +157,7 @@ namespace Homework_1
             Employee c = new Employee("123", 50);
             c.SetBonus(10);
             Console.WriteLine("" + c.ToPay());
+            
             return 0;
         }
     }
