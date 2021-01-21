@@ -6,7 +6,6 @@ namespace Homework_1
 
     class Employee
     {
-
         protected string name;
         protected decimal salary;
         protected decimal bonus;
@@ -48,8 +47,6 @@ namespace Homework_1
         public SalesPerson(string name, decimal salary, int percent)
             : base(name, salary) 
         {
-            this.name = name;
-            this.salary = salary;
             this.percent = percent;
         }
 
@@ -57,15 +54,15 @@ namespace Homework_1
         {
             if(percent <= 100)
             {
-                this.bonus = bonus;
+                base.SetBonus(bonus);
             } 
             if (percent > 100 && percent <= 200)
             {
-                this.bonus = bonus*2;
+                base.SetBonus(bonus * 2);
             }
             if(percent > 200)
             {
-                this.bonus = bonus*3;
+                base.SetBonus(bonus * 3);
             }       
         }
     }
@@ -77,8 +74,6 @@ namespace Homework_1
         public Manager(string name, decimal salary, int clientAmount)
             : base(name, salary)
         {
-            this.name = name;
-            this.salary = salary;
             quantity = clientAmount;
         }
 
@@ -86,29 +81,29 @@ namespace Homework_1
         {
             if (quantity <= 100)
             {
-                this.bonus = bonus;
+                base.SetBonus(bonus);
             }
             if (quantity > 100 && quantity <= 150)
             {
-                this.bonus = bonus + 500;
+                base.SetBonus(bonus + 500);
             }
             if (quantity > 150)
             {
-                this.bonus = bonus + 1000;
+                base.SetBonus(bonus + 1000);
             }
         }
     }
 
     class Company
     {
-        public Employee [] staff;
+        protected Employee [] staff;
 
         public Company(Employee []  a)
         {
             staff = a;
         }
 
-        public void GiveEverbodyBonus(decimal companyBonus)
+        public void GiveEverybodyBonus(decimal companyBonus)
         {
             for (int i = 0; i < staff.Length; i++)
             {
@@ -148,16 +143,17 @@ namespace Homework_1
     {
         public static int Main()
         {
-            SalesPerson a = new SalesPerson("ввв", 0, 20);
-            a.SetBonus(10);
-            Console.WriteLine("" + a.ToPay()) ;
-            Manager b = new Manager("", 5, 500);
-            b.SetBonus(0);
-            Console.WriteLine("" + b.ToPay());
-            Employee c = new Employee("123", 50);
-            c.SetBonus(10);
-            Console.WriteLine("" + c.ToPay());
-            
+            Employee a = new Employee("a", 50);
+            SalesPerson b = new SalesPerson("b", 0, 20);
+            Manager c = new Manager("c", 5, 500);
+            Employee[] abc = { a, b, c };
+            Company gg = new Company(abc);
+            gg.GiveEverybodyBonus(100);
+            Console.WriteLine("a.salary=" + a.ToPay());
+            Console.WriteLine("b.salary=" + b.ToPay());
+            Console.WriteLine("c.salary=" + c.ToPay());
+            Console.WriteLine("total.salary="+ gg.TotalToPay());
+            Console.WriteLine("best.worker=" + gg.NameMaxSalary());
             return 0;
         }
     }
