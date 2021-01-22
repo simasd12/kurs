@@ -1,7 +1,6 @@
-using Homework_1;
 using System;
 
-namespace Homework_1
+namespace Inheritance
 {
 
     class Employee
@@ -10,22 +9,36 @@ namespace Homework_1
         protected decimal salary;
         protected decimal bonus;
 
-        public string Name()
+        public string Name
         {
-            return name;
+            get
+            {
+                return name;
+            }
+
+            set
+            {
+                name = value;
+            }
         }
 
-        public decimal Salary(decimal salary)
+        public decimal Salary
         {
-            this.salary = salary;
-            return this.salary;
-            
+            get
+            {
+                return salary;
+            }
+
+            set
+            {
+                salary = value;
+            }
         }
 
         public Employee(string name, decimal salary)
         {
             this.name = name;
-            this.salary = salary;
+            Salary = salary;
         }
 
         public virtual void SetBonus(decimal bonus)
@@ -35,8 +48,8 @@ namespace Homework_1
 
         public decimal ToPay()
         {
-            salary += bonus;
-            return salary;
+            Salary += bonus;
+            return Salary;
         }
     }
 
@@ -96,27 +109,27 @@ namespace Homework_1
 
     class Company
     {
-        protected Employee [] staff;
+        protected Employee [] employees;
 
         public Company(Employee []  a)
         {
-            staff = a;
+            employees = a;
         }
 
         public void GiveEverybodyBonus(decimal companyBonus)
         {
-            for (int i = 0; i < staff.Length; i++)
+            for (int i = 0; i < employees.Length; i++)
             {
-                staff[i].SetBonus(companyBonus);
+                employees[i].SetBonus(companyBonus);
             }   
         }
 
         public decimal TotalToPay()
         {
             decimal totalToPay = 0;
-            for (int i = 0; i < staff.Length; i++)
+            for (int i = 0; i < employees.Length; i++)
             {
-                totalToPay += staff[i].ToPay();
+                totalToPay += employees[i].ToPay();
             }
             return totalToPay;
         }
@@ -125,36 +138,15 @@ namespace Homework_1
         {
             decimal maxSalary = 0;
             string resName = "";
-            for (int i = 0; i < staff.Length; i++)
+            for (int i = 0; i < employees.Length; i++)
             {
-                if (maxSalary <= staff[i].ToPay())
+                if (maxSalary <= employees[i].ToPay())
                 {
-                    maxSalary = staff[i].ToPay();
-                    resName = staff[i].Name();
+                    maxSalary = employees[i].ToPay();
+                    resName = employees[i].Name;
                 }
             }
             return resName;
-        }
-    }
-
-
-
-    public static class MainClass
-    {
-        public static int Main()
-        {
-            Employee a = new Employee("a", 50);
-            SalesPerson b = new SalesPerson("b", 0, 20);
-            Manager c = new Manager("c", 5, 500);
-            Employee[] abc = { a, b, c };
-            Company gg = new Company(abc);
-            gg.GiveEverybodyBonus(100);
-            Console.WriteLine("a.salary=" + a.ToPay());
-            Console.WriteLine("b.salary=" + b.ToPay());
-            Console.WriteLine("c.salary=" + c.ToPay());
-            Console.WriteLine("total.salary="+ gg.TotalToPay());
-            Console.WriteLine("best.worker=" + gg.NameMaxSalary());
-            return 0;
         }
     }
 
